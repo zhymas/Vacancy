@@ -1,0 +1,10 @@
+{% extends 'client/home_page.html' %}
+
+{% block title %}Profile{% endblock %}
+
+{% block content %}
+<div class="container">
+  <h1 class="welcome">Hello {{ user.username }}</h1>
+  <a href="{% url 'logout' %}" class="logout">Logout</a>
+</div>
+{% endblock %}

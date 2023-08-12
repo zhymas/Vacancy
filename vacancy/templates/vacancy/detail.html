@@ -1,0 +1,13 @@
+{% extends 'client/home_page.html' %}
+{% block title %}Vacancy{% endblock %}
+{% block content %}
+<div class="detail-vacancy">
+    <h1 class="detail-title">{{model.title}}</h1>
+    <h3 class="detail-text">{{model.main_text}}</h3>
+    <p class="detail-date">{{model.date}}</p>
+    <p class="detail-views"><i class="fa-solid fa-eye"></i> {{model.views}}</p>
+    <p class="detail-application"><i class="fa-sharp fa-solid fa-envelopes-bulk"></i> {{model.application_filed}}</p>
+    <p class="detail-company">Company: {{model.company_name}}</p>
+    <hr>
+</div>
+{% endblock %}

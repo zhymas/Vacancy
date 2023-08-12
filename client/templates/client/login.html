@@ -1,0 +1,23 @@
+{% extends 'client/home_page.html' %}
+{% block title %}Login{% endblock %}
+{% block content %}
+<div class="registration-form">
+  <h2>Login</h2>
+  <form method="post">
+    {% csrf_token %}
+    <div class="error-message">{{form.non_field_errors}}</div>
+    {% for f in form %}
+      <div class="form-group">
+        <label for="">{{f.label}}:</label>&nbsp;&nbsp;
+        {{f}}
+        <div class="error-message">
+          {{f.errors}}
+        </div>
+      </div>
+    {% endfor %}
+    <button type="submit" class="btn btn-primary">Login</button>
+  </form>
+</div>
+  </form>
+</div>
+{% endblock %}

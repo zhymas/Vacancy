@@ -1,0 +1,13 @@
+{% extends 'client/home_page.html' %}
+{% block title %}Vacancy{% endblock %}
+{% block content %}
+<form action="" method="post">
+  {% csrf_token %}
+  {% for i in form %}
+  <div class="form">
+    {{i.label}}{{i}}
+  </div>
+  {% endfor %}
+  <button class="button" type="submit">Create vacancy</button>
+</form>
+{% endblock %}
