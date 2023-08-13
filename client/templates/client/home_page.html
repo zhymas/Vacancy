@@ -14,13 +14,13 @@
     <div class="top-left-container">
         <a href="{% url 'home' %}" class="top-left-text">Vacancy.com</a>
         <a href="{% url 'vacancy' %}" class="top-left-text">Offers</a>
+        {% if user_profile.user_type == 'recruiter'%}
+        <a href="{% url 'create_vacancy' %}" class="top-left-text">Create offer</a>
+        {% endif %}
     </div>
     <div class="signup-login-container">
         {% if request.user.is_authenticated %}
             <a href="{% url 'detail_user' %}" class="top-right-text">{{ user.username }}</a>
-            {% if user.is_recruiter %}
-            <a href="">Create offer</a>
-            {% endif %}
         {% else %}
             <a href="{% url 'sign_up' %}" class="top-right-text"><i class="fa-solid fa-key"></i>Sign up</a>  <a href="{% url 'login' %}" class="top-right-text"><i class="fa-solid fa-right-to-bracket"></i>Log in</a>
         {% endif %}

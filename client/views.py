@@ -1,4 +1,5 @@
 from django.contrib.auth import logout, login
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from django.contrib.auth.views import LoginView
@@ -7,6 +8,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
 from .forms import RegisterUserForm, LoginUserForm
+from .models import UserProfile
 
 
 class RegisterUser(CreateView):
@@ -37,9 +39,17 @@ def logout_user(request):
 
 
 def home(request):
-    return render(request, 'client/home_page.html', {'link': 'home page'})
+    if request.user.is_authenticated:
+        user_profile = UserProfile.objects.get(user=request.user)
+        return render(request, 'client/home_page.html', {'user_profile': user_profile})
+    else:
+        return render(request, 'client/home_page.html')
 
 
 def detail_user(request):
-    return render(request, 'client/detail_user.html')
+    if request.user.is_authenticated:
+        user_profile = UserProfile.objects.get(user=request.user)
+        return render(request, 'client/detail_user.html', {'user_profile': user_profile})
+    else:
+        return render(request, 'client/detail_user.html')
 

@@ -15,6 +15,9 @@ class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='userprofile')
     user_type = models.CharField(max_length=10, choices=USER_TYPE, default='')
 
+    def __str__(self):
+        return self.user_type
+
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):

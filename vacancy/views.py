@@ -2,11 +2,16 @@ from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from .forms import VacancyForm
 from .models import Vacancy
+from client.models import UserProfile
 
 
 def vacancy(request):
     model = Vacancy.objects.all()
-    return render(request, 'vacancy/vacancy.html', {'model': model})
+    if request.user.is_authenticated:
+        user_profile = UserProfile.objects.get(user=request.user)
+        return render(request, 'vacancy/vacancy.html', {'model': model, 'user_profile': user_profile})
+    else:
+        return render(request, 'vacancy/vacancy.html', {'model': model})
 
 
 def create_vacancy(request):
