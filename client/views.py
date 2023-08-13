@@ -15,7 +15,10 @@ class RegisterUser(CreateView):
     success_url = reverse_lazy('home')
 
     def form_valid(self, form):
+        user_type = form.cleaned_data.get('user_type')
         user = form.save()
+        user.userprofile.user_type = user_type
+        user.save()
         login(self.request, user)
         return redirect('home')
 
