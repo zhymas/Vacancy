@@ -5,6 +5,7 @@
 {% block content %}
 <div class="container">
   <h1 class="welcome">Hello {{ user.username }}</h1>
+  <h3>Type profile: {{user_profile.user_type}}</h3>
   <a href="{% url 'logout' %}" class="logout">Logout</a>
 </div>
 {% endblock %}

@@ -1,5 +1,5 @@
 from django.http import JsonResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .forms import VacancyForm
 from .models import Vacancy
 from client.models import UserProfile
@@ -15,6 +15,13 @@ def vacancy(request):
 
 
 def create_vacancy(request):
+    if not request.user.is_authenticated:
+        return JsonResponse({'error': 'You are not logged in'})
+
+    user_profile = get_object_or_404(UserProfile, user=request.user)
+    if user_profile.user_type != 'recruiter':
+        return JsonResponse({'error': 'You are not a recruiter'})
+
     if request.method == 'POST':
         form = VacancyForm(request.POST)
         if form.is_valid():
@@ -22,6 +29,7 @@ def create_vacancy(request):
             return redirect('vacancy')
     else:
         form = VacancyForm()
+
     return render(request, 'vacancy/create_vacancy.html', {'form': form})
 
 
