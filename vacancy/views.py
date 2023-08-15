@@ -29,4 +29,8 @@ def detail(request, pk):
     model = Vacancy.objects.get(pk=pk)
     model.views += 1
     model.save()
-    return render(request, 'vacancy/detail.html', {'model': model})
+    if request.user.is_authenticated:
+        user_profile = UserProfile.objects.get(user=request.user)
+        return render(request, 'vacancy/detail.html', {'model': model, 'user_profile': user_profile})
+    else:
+        return render(request, 'vacancy/detail.html', {'model': model})

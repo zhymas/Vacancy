@@ -4,11 +4,11 @@
 <div class="vacancy">
     {% for vacancy in model %}
         <h1 class="title"><a href="{% url 'detail_vacancy' vacancy.id %}">{{vacancy.title}}</a></h1>
-        <h3 class="main-text-vacancy">{{vacancy.main_text|truncatewords:50}}</h3>
+        <h1 class="salary">{{vacancy.salary}}$</h1>
+        <h3 class="main-text-vacancy">{{ vacancy.main_text|truncatechars:120 }}</h3>
         <p class="date">{{vacancy.date}}</p>
         <p class="views"><i class="fa-solid fa-eye"></i> {{vacancy.views}}</p><p class="application_filed"><i class="fa-sharp fa-solid fa-envelopes-bulk"></i> {{vacancy.application_filed}}</p>
         <p class="company">Company: {{vacancy.company_name}}</p>
-
     <hr>
     {% endfor %}
 </div>

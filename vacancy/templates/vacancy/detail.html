@@ -4,10 +4,20 @@
 <div class="detail-vacancy">
     <h1 class="detail-title">{{model.title}}</h1>
     <h3 class="detail-text">{{model.main_text}}</h3>
-    <p class="detail-date">{{model.date}}</p>
-    <p class="detail-views"><i class="fa-solid fa-eye"></i> {{model.views}}</p>
-    <p class="detail-application"><i class="fa-sharp fa-solid fa-envelopes-bulk"></i> {{model.application_filed}}</p>
-    <p class="detail-company">Company: {{model.company_name}}</p>
-    <hr>
-</div>
+            <p class="detail-date">{{model.date}}</p>
+            <p class="detail-views"><i class="fa-solid fa-eye"></i> {{model.views}}</p>
+            <p class="detail-application"><i class="fa-sharp fa-solid fa-envelopes-bulk"></i> {{model.application_filed}}</p>
+            <p class="detail-company">Company: {{model.company_name}}</p>
+            <p class="site-company-detail">Company site: <a href="{{model.company_site}}">{{model.company_site}}</a></p>
+            <p class="salary-detail">Salary: {{model.salary}}$</p>
+            <p class="geolocation-detail">Location: {{model.geolocation}}</p>
+            <p class="english-detail">English: {{model.english_level}}</p>
+            <p class="category-detail">Category: {{model.category}}</p>
+            <p class="years_of_experience">Experience: {{model.years_of_experience}} year</p><br>
+            {% if user_profile.user_type == 'worker' %}
+            <button type="submit" class="button">Response</button>
+                {% else %}
+                <a href="{% url 'sign_up' %}"><button class="button">Response</button></a>
+            {% endif %}
+    </div>
 {% endblock %}
