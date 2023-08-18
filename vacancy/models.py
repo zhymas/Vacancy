@@ -35,8 +35,7 @@ class Vacancy(models.Model):
     salary = models.IntegerField(validators=[MaxValueValidator(10000)], blank=True)
     geolocation = models.CharField(max_length=20, blank=True)
     company_site = models.URLField(blank=True)
-
-
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='vacancies', null=True)
 
 
 

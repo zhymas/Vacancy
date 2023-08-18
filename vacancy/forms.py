@@ -6,4 +6,4 @@ class VacancyForm(forms.ModelForm):
     class Meta:
         model = Vacancy
         fields = '__all__'
-        exclude = ['views', 'application_filed']
+        exclude = ['views', 'application_filed', 'author']

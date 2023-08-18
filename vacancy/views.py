@@ -6,7 +6,7 @@ from client.models import UserProfile
 
 
 def vacancy(request):
-    model = Vacancy.objects.all()
+    model = Vacancy.objects.order_by('-id')
     if request.user.is_authenticated:
         user_profile = UserProfile.objects.get(user=request.user)
         return render(request, 'vacancy/vacancy.html', {'model': model, 'user_profile': user_profile})
@@ -25,8 +25,10 @@ def create_vacancy(request):
     if request.method == 'POST':
         form = VacancyForm(request.POST)
         if form.is_valid():
+            vacancy = form.save(commit=False)
+            vacancy.author = request.user
             form.save()
-            return redirect('vacancy')
+
     else:
         form = VacancyForm()
 
