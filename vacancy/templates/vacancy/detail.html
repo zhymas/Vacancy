@@ -15,7 +15,20 @@
             <p class="category-detail">Category: {{model.category}}</p>
             <p class="years_of_experience">Experience: {{model.years_of_experience}} year</p><br>
             {% if user_profile.user_type == 'worker' %}
-            <button type="submit" class="button">Response</button>
+                {% if existing_response %}
+                    <p class="response-exist"><i class="fa-solid fa-check"></i> You have already applied for this job</p>
+                {% endif %}
+                {% if not existing_response %}
+                    <form method="post">
+                        {% csrf_token %}
+                            <p>
+                                Write why you are interested in this particular vacancy
+                                (minimum 50 chars):
+                            </p>
+                            {{form.response_text}}<br>
+                            <button type="" class="button">Response</button>
+                    </form>
+                {% endif %}
                 {% else %}
                 <a href="{% url 'sign_up' %}"><button class="button">Response</button></a>
             {% endif %}

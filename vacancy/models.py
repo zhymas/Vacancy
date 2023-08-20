@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from django.core.validators import MaxValueValidator
 from django.db import models
+from django.core.exceptions import ValidationError
 
 
 class Vacancy(models.Model):
@@ -22,7 +23,7 @@ class Vacancy(models.Model):
         ('C2', 'Proficient')
     )
     title = models.CharField(max_length=70)
-    main_text = models.TextField(max_length=1700)
+    main_text = models.TextField(max_length=2500)
     company_name = models.CharField(max_length=25)
     years_of_experience = models.IntegerField(
         validators=[MaxValueValidator(10)], help_text='Max 10 years of experience', blank=True
@@ -37,5 +38,11 @@ class Vacancy(models.Model):
     company_site = models.URLField(blank=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='vacancies', null=True)
 
+    def __str__(self):
+        return self.title
 
 
+class Response(models.Model):
+    response_text = models.CharField(max_length=200)
+    response_user = models.ForeignKey(User, on_delete=models.CASCADE)
+    vacancy = models.ForeignKey(Vacancy, on_delete=models.CASCADE, null=True)
