@@ -28,6 +28,7 @@ def create_vacancy(request):
             vacancy = form.save(commit=False)
             vacancy.author = request.user
             form.save()
+            return redirect('vacancy')
 
     else:
         form = VacancyForm()

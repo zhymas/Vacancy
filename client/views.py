@@ -56,5 +56,6 @@ def detail_user(request):
 
 
 def detail_response(request, pk):
-    pass
+    response = Response.objects.get(pk=pk)
+    return render(request, 'client/detail_response.html', {'response': response})
 

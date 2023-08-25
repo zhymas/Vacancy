@@ -1,10 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-
-</body>
-</html>
+{% extends 'client/home_page.html' %}
+{% block title %}Response{% endblock %}
+{% block content %}
+<div class="detail-response">
+<h1 class="candidate">Candidate: {{response.response_user.username}}</h1>
+<h2 class="response-text">{{response.response_text}}</h2>
+<h3 class="contact">Contact: {{response.response_user.email}}</h3>
+    </div>
+{% endblock %}

@@ -12,11 +12,11 @@
     {% for vacancy in vacancies %}
     {{ vacancy.title }}:<br>
     {% for response in vacancy.response_set.all %}
-        {{ response.response_user.username }}<br>
+      <a href="{% url 'detail_response' response.id %}">{{ response.response_user.username }}</a><br>
     {% endfor %}<br>
 {% endfor %}
     </div>
-  <a href="{% url 'logout' %}" class="logout">Logout</a>
   {% endif %}
+  <a href="{% url 'logout' %}" class="logout">Logout</a>
 </div>
 {% endblock %}
