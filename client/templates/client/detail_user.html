@@ -6,6 +6,17 @@
 <div class="container">
   <h1 class="welcome">Hello {{ user.username }}</h1>
   <h3>Type profile: {{user_profile.user_type}}</h3>
+  {% if user_profile.user_type == 'recruiter' %}
+    <div class="responses-vacancy">
+      <h3>Your created vacancies</h3>
+    {% for vacancy in vacancies %}
+    {{ vacancy.title }}:<br>
+    {% for response in vacancy.response_set.all %}
+        {{ response.response_user.username }}<br>
+    {% endfor %}<br>
+{% endfor %}
+    </div>
   <a href="{% url 'logout' %}" class="logout">Logout</a>
+  {% endif %}
 </div>
 {% endblock %}

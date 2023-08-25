@@ -6,6 +6,7 @@ from django.urls import reverse_lazy
 from django.views.generic import CreateView
 from .forms import RegisterUserForm, LoginUserForm
 from .models import UserProfile
+from vacancy.models import Response, Vacancy
 
 
 class RegisterUser(CreateView):
@@ -45,8 +46,15 @@ def home(request):
 
 def detail_user(request):
     if request.user.is_authenticated:
+        vacancies = Vacancy.objects.filter(author=request.user)
+        responses = Response.objects.filter(vacancy__in=vacancies)
         user_profile = UserProfile.objects.get(user=request.user)
-        return render(request, 'client/detail_user.html', {'user_profile': user_profile})
+        return render(request, 'client/detail_user.html', {'user_profile': user_profile, 'responses': responses,
+                                                           'vacancies': vacancies})
     else:
-        return render(request, 'client/detail_user.html')
+        return JsonResponse({"error": 'You are not authenticated'})
+
+
+def detail_response(request, pk):
+    pass
 
