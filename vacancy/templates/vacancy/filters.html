@@ -1,7 +1,9 @@
 {% extends 'client/home_page.html' %}
 {% block title %}Filters{% endblock %}
 {% block content %}
+
 {% if experience or city %}
+<h1>Filtered by '{{experience}}{{city}}'</h1>
 <div class="vacancy">
     {% for vacancy in vacancies %}
         <h1 class="title"><a href="{% url 'detail_vacancy' vacancy.id %}">{{vacancy.title}}</a></h1>
