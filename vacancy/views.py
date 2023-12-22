@@ -33,7 +33,7 @@ def create_vacancy(request):
     else:
         form = VacancyForm()
 
-    return render(request, 'vacancy/create_vacancy.html', {'form': form})
+    return render(request, 'vacancy/create_vacancy.html', {'form': form, 'user_profile': user_profile})
 
 
 def detail(request, pk):
@@ -62,3 +62,26 @@ def detail(request, pk):
                                                         'existing_response': existing_response})
     else:
         return render(request, 'vacancy/detail.html', {'model': model})
+
+
+def filter(request):
+    user_profile = get_object_or_404(UserProfile, user=request.user)
+
+    city = request.GET.get('city', '')
+    experience = request.GET.get('experience', '')
+
+    vacancies = Vacancy.objects.all()
+
+    if experience:
+        vacancies = vacancies.filter(years_of_experience=experience)
+
+    if city:
+        vacancies = vacancies.filter(geolocation=city)
+
+    if not vacancies.exists():
+        return JsonResponse({'Not found': 'Nothing was found for this filter value'})
+    
+    return render(request, 'vacancy/filters.html', {'user_profile': user_profile, 
+                                                    'vacancies': vacancies,
+                                                      'experience' : experience,
+                                                      'city': city})

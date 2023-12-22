@@ -17,6 +17,9 @@
         {% if user_profile.user_type == 'recruiter'%}
         <a href="{% url 'create_vacancy' %}" class="top-left-text">Create offer</a>
         {% endif %}
+        {% if request.user.is_authenticated %}
+        <a href="{% url 'filters' %}" class="top-left-text">Filters</a>
+        {% endif %}
     </div>
     <div class="signup-login-container">
         {% if request.user.is_authenticated %}

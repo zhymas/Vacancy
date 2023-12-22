@@ -14,6 +14,7 @@ class UserProfile(models.Model):
     )
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='userprofile')
     user_type = models.CharField(max_length=10, choices=USER_TYPE, default='None')
+
     def __str__(self):
         return self.user_type
 
@@ -27,3 +28,4 @@ def create_user_profile(sender, instance, created, **kwargs):
 @receiver(post_save, sender=User)
 def save_user_profile(sender, instance, **kwargs):
     instance.userprofile.save()
+

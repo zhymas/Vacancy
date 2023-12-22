@@ -1,0 +1,30 @@
+{% extends 'client/home_page.html' %}
+{% block title %}Filters{% endblock %}
+{% block content %}
+{% if experience or city %}
+<div class="vacancy">
+    {% for vacancy in vacancies %}
+        <h1 class="title"><a href="{% url 'detail_vacancy' vacancy.id %}">{{vacancy.title}}</a></h1>
+        <h1 class="salary">{{vacancy.salary}}$</h1>
+        <h3 class="main-text-vacancy">{{ vacancy.main_text|truncatechars:120 }}</h3>
+        <p class="date">{{vacancy.date}}</p>
+        <p class="views"><i class="fa-solid fa-eye"></i> {{vacancy.views}}</p><p class="application_filed"><i class="fa-sharp fa-solid fa-envelopes-bulk"></i> {{vacancy.application_filed}}</p>
+        <p class="company">Company: {{vacancy.company_name}}</p>
+        <p>Recruiter: {{vacancy.author}}</p>
+    <hr>
+    {% endfor %}
+</div>
+{% else %}
+<form action="" method="get">
+{% csrf_token %}
+
+<p>Enter city:</p>
+<input type="text" name="city" id="city">
+<button type="submit">Submit</button>
+<hr>
+<p>Enter years of experience: </p>
+<input type="text" name="experience" id="experience">
+<button type="submit">Submit</button>
+</form>
+{% endif %}
+{% endblock %}

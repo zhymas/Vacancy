@@ -20,3 +20,4 @@ class ResponseForm(forms.ModelForm):
         model = Response
         fields = '__all__'
         exclude = ['response_user', 'vacancy']
+
