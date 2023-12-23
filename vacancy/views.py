@@ -72,6 +72,9 @@ def filter(request):
 
     vacancies = Vacancy.objects.all()
 
+    if experience and city:
+        vacancies.filter(years_of_experience=experience, geolocation=city)
+
     if experience:
         vacancies = vacancies.filter(years_of_experience=experience)
 

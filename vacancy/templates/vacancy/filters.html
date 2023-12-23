@@ -3,7 +3,10 @@
 {% block content %}
 
 {% if experience or city %}
-<h1>Filtered by '{{experience}}{{city}}'</h1>
+  <h1>
+    {% if experience %}Filtered by '{{experience}} years'{% endif %}
+    {% if city %}{% if experience %}, {% endif %}Filtered by '{{city}}'{% endif %}
+  </h1>
 <div class="vacancy">
     {% for vacancy in vacancies %}
         <h1 class="title"><a href="{% url 'detail_vacancy' vacancy.id %}">{{vacancy.title}}</a></h1>
@@ -19,13 +22,12 @@
 {% else %}
 <form action="" method="get">
 {% csrf_token %}
-
 <p>Enter city:</p>
 <input type="text" name="city" id="city">
-<button type="submit">Submit</button>
 <hr>
 <p>Enter years of experience: </p>
 <input type="text" name="experience" id="experience">
+<hr>
 <button type="submit">Submit</button>
 </form>
 {% endif %}
